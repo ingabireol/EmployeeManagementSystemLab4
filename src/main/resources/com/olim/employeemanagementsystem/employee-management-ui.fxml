@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.olim.employeemanagementsystem.view.EmployeeManagementController"
+            prefHeight="700.0" prefWidth="1200.0">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+
+    <!-- Top section: Search & Filter -->
+    <top>
+        <VBox spacing="10.0">
+            <padding>
+                <Insets bottom="10.0"/>
+            </padding>
+
+            <Label text="Search, Filter &amp; Sort"/>
+            <Separator/>
+
+            <HBox spacing="15.0" alignment="CENTER_LEFT">
+                <Label text="Search by Name:"/>
+                <TextField fx:id="searchNameField" prefWidth="150.0"/>
+
+                <Label text="Department:"/>
+                <ComboBox fx:id="filterDepartmentComboBox" prefWidth="120.0"/>
+
+                <Label text="Sort By:"/>
+                <ComboBox fx:id="sortComboBox" prefWidth="180.0"/>
+            </HBox>
+
+            <HBox spacing="15.0" alignment="CENTER_LEFT">
+                <Label text="Salary Range:"/>
+                <TextField fx:id="minSalaryField" prefWidth="80.0" promptText="Min"/>
+                <Label text="-"/>
+                <TextField fx:id="maxSalaryField" prefWidth="80.0" promptText="Max"/>
+
+                <Label text="Min Rating:"/>
+                <TextField fx:id="minRatingField" prefWidth="60.0" promptText="0-5"/>
+
+                <Button text="Apply Filters" onAction="#applyFilters"/>
+                <Button text="Reset Filters" onAction="#resetFilters"/>
+                <Label text="Reports" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                <HBox spacing="10.0">
+                    <Button text="Department Summary" maxWidth="Infinity" onAction="#showDepartmentReport" HBox.hgrow="ALWAYS"/>
+                    <Button text="Salary Distribution" maxWidth="Infinity" onAction="#showSalaryReport" HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <Button text="Performance Report" maxWidth="Infinity" onAction="#showPerformanceReport"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center section: Employee Table -->
+    <center>
+        <TableView fx:id="employeeTable">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="60.0"/>
+                <TableColumn fx:id="nameColumn" text="Name" prefWidth="150.0"/>
+                <TableColumn fx:id="departmentColumn" text="Department" prefWidth="100.0"/>
+                <TableColumn fx:id="salaryColumn" text="Salary ($)" prefWidth="100.0"/>
+                <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="80.0"/>
+                <TableColumn fx:id="yearsColumn" text="Years Exp" prefWidth="80.0"/>
+                <TableColumn fx:id="activeColumn" text="Active" prefWidth="80.0"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <!-- Right section: Employee Form -->
+    <right>
+        <VBox spacing="5.0" prefWidth="300.0">
+            <padding>
+                <Insets left="10.0"/>
+            </padding>
+
+            <Label text="Employee Information" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+            <Label text="Employee ID:"/>
+            <TextField fx:id="idField" promptText="Employee ID"/>
+
+            <Label text="Name:"/>
+            <TextField fx:id="nameField" promptText="Name"/>
+
+            <Label text="Department:"/>
+            <TextField fx:id="departmentField" promptText="Department"/>
+
+            <Label text="Salary:"/>
+            <TextField fx:id="salaryField" promptText="Salary"/>
+
+            <Label text="Performance Rating:"/>
+            <TextField fx:id="ratingField" promptText="Performance Rating (0-5)"/>
+
+            <Label text="Years of Experience:"/>
+            <TextField fx:id="yearsField" promptText="Years of Experience"/>
+
+            <CheckBox fx:id="activeCheck" text="Active Employee" selected="true"/>
+
+            <Separator>
+                <VBox.margin>
+                    <Insets top="10.0" bottom="10.0"/>
+                </VBox.margin>
+            </Separator>
+
+            <Button text="Add Employee" maxWidth="Infinity" onAction="#addEmployee"/>
+            <Button text="Update Employee" maxWidth="Infinity" onAction="#updateEmployee"/>
+            <Button text="Remove Employee" maxWidth="Infinity" onAction="#removeEmployee"/>
+            <Button text="Clear Form" maxWidth="Infinity" onAction="#clearForm"/>
+
+            <Separator>
+                <VBox.margin>
+                    <Insets top="10.0" bottom="10.0"/>
+                </VBox.margin>
+            </Separator>
+
+            <Label text="Reports" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+            <HBox spacing="10.0">
+                <Button text="Department Summary" maxWidth="Infinity" onAction="#showDepartmentReport" HBox.hgrow="ALWAYS"/>
+                <Button text="Salary Distribution" maxWidth="Infinity" onAction="#showSalaryReport" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <Button text="Performance Report" maxWidth="Infinity" onAction="#showPerformanceReport"/>
+        </VBox>
+    </right>
+</BorderPane>
