@@ -8,6 +8,7 @@ module com.olim.employeemanagementsystem {
             requires org.kordamp.ikonli.javafx;
             requires org.kordamp.bootstrapfx.core;
             requires eu.hansolo.tilesfx;
+    requires java.logging;
 
     opens com.olim.employeemanagementsystem to javafx.fxml;
     opens com.olim.employeemanagementsystem.view to javafx.fxml;
