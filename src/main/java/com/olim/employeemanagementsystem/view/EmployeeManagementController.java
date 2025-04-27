@@ -4,6 +4,7 @@ import com.olim.employeemanagementsystem.comparator.EmployeePerformanceComparato
 import com.olim.employeemanagementsystem.comparator.EmployeeSalaryComparator;
 import com.olim.employeemanagementsystem.db.EmployeeDatabase;
 import com.olim.employeemanagementsystem.display.EmployeeDisplay;
+import com.olim.employeemanagementsystem.exception.EmptyAttributeException;
 import com.olim.employeemanagementsystem.model.Employee;
 
 import javafx.collections.FXCollections;
@@ -55,7 +56,11 @@ public class EmployeeManagementController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Initialize database and load sample data
         database = new EmployeeDatabase<>(new HashMap<>());
-        loadSampleData();
+        try {
+            loadSampleData();
+        } catch (EmptyAttributeException e) {
+            showAlert("Empty Attribute",e.getMessage());
+        }
         // Initialize table columns
         idColumn.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -334,7 +339,7 @@ public class EmployeeManagementController implements Initializable {
         activeCheck.setSelected(employee.isActive());
     }
 
-    private void loadSampleData() {
+    private void loadSampleData() throws EmptyAttributeException {
         database.addEmployee(new Employee<>(1001, "John Smith", "IT", 78500.0, 4.2, 5, true));
         database.addEmployee(new Employee<>(1002, "Sarah Johnson", "HR", 65000.0, 4.5, 3, true));
         database.addEmployee(new Employee<>(1003, "Michael Chen", "Finance", 85000.0, 3.8, 7, true));

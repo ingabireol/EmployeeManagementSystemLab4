@@ -2,6 +2,8 @@ package com.olim.employeemanagementsystem.db;
 
 import com.olim.employeemanagementsystem.comparator.EmployeePerformanceComparator;
 import com.olim.employeemanagementsystem.comparator.EmployeeSalaryComparator;
+import com.olim.employeemanagementsystem.exception.EmployeeExistsException;
+import com.olim.employeemanagementsystem.exception.EmptyAttributeException;
 import com.olim.employeemanagementsystem.model.Employee;
 import com.olim.employeemanagementsystem.service.SalaryManagementService;
 import com.olim.employeemanagementsystem.service.SearchService;
@@ -15,12 +17,20 @@ public class EmployeeDatabase<T> implements SearchService<T>, SortService<T>, Sa
     public EmployeeDatabase(HashMap<T, Employee<T>> employees) {
         this.employees = employees;
     }
-    public T addEmployee(Employee<T> employee){
+    //adds an employee to the database
+    public T addEmployee(Employee<T> employee) throws EmptyAttributeException, EmployeeExistsException {
         if(employee == null){
             throw new IllegalArgumentException("Employee can not be empty");
         }
+        if(employee.getName().isEmpty()){
+            throw new EmptyAttributeException("Name can not be empty");
+        }
+
+        if(employee.getName().isEmpty()){
+            throw new EmptyAttributeException("Name can not be empty");
+        }
         if(employees.containsKey(employee.getEmployeeId()))
-            return null;
+            throw new EmployeeExistsException();
         if(employee.getEmployeeId() instanceof Integer id){
             if(id < 0){
                 throw new IllegalArgumentException("Invalid Id");
