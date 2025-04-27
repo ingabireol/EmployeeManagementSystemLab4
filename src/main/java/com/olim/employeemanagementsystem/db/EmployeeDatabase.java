@@ -150,18 +150,7 @@ public class EmployeeDatabase<T> implements SearchService<T>, SortService<T>, Sa
         }
     }
 
-    /**
-     * Updates an employee's details
-     *
-     * @param employeeId The ID of the employee to update
-     * @param field The field to update
-     * @param newValue The new value for the field
-     * @return The updated employee
-     * @throws IllegalArgumentException If any input data is invalid
-     * @throws EmployeeNotFoundException If no employee found with the given ID
-     * @throws InvalidSalaryException If the new salary is negative or invalid
-     * @throws InvalidDepartmentException If the new department is not valid
-     */
+    // Modified method with an intentional bug in the salary update
     public Employee<T> updateEmployeeDetails(T employeeId, String field, Object newValue)
             throws EmployeeNotFoundException, InvalidSalaryException, InvalidDepartmentException {
         try {
@@ -211,7 +200,9 @@ public class EmployeeDatabase<T> implements SearchService<T>, SortService<T>, Sa
                         if(salary < 0) {
                             throw new InvalidSalaryException("Salary cannot be negative");
                         }
-                        employee.setSalary(salary);
+                        // BUG: Dividing salary by 10 instead of using the actual value
+                        // This will cause salaries to be significantly lower than expected
+                        employee.setSalary(salary / 10);
                     } else {
                         throw new IllegalArgumentException("Salary must be a number");
                     }
@@ -265,7 +256,6 @@ public class EmployeeDatabase<T> implements SearchService<T>, SortService<T>, Sa
             throw new RuntimeException("Failed to update employee: " + e.getMessage(), e);
         }
     }
-
     /**
      * Gets all employees in the database
      *
