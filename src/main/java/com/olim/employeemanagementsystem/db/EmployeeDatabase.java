@@ -150,7 +150,7 @@ public class EmployeeDatabase<T> implements SearchService<T>, SortService<T>, Sa
         }
     }
 
-    // Modified method with an intentional bug in the salary update
+    // Fixed method without the salary division bug
     public Employee<T> updateEmployeeDetails(T employeeId, String field, Object newValue)
             throws EmployeeNotFoundException, InvalidSalaryException, InvalidDepartmentException {
         try {
@@ -200,9 +200,8 @@ public class EmployeeDatabase<T> implements SearchService<T>, SortService<T>, Sa
                         if(salary < 0) {
                             throw new InvalidSalaryException("Salary cannot be negative");
                         }
-                        // BUG: Dividing salary by 10 instead of using the actual value
-                        // This will cause salaries to be significantly lower than expected
-                        employee.setSalary(salary / 10);
+                        // FIX: Use the actual salary value without division
+                        employee.setSalary(salary);
                     } else {
                         throw new IllegalArgumentException("Salary must be a number");
                     }
